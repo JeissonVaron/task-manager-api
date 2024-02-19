@@ -13,7 +13,9 @@ import { SeedModule } from './seed/seed.module';
       load: [EnvConfiguration]
     }),
     MongooseModule.forRoot(
-      process.env.MONGODB
+      process.env.MONGODB, {
+        dbName: 'taskManagerDB'
+      }
     ),
     TasksModule,
     CommonModule,
