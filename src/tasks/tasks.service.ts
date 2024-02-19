@@ -3,17 +3,19 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Model } from 'mongoose';
 import { Task } from './entities/task.entity';
-import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class TasksService {
   constructor(
     @InjectModel(Task.name)
     private readonly TaskModel: Model<Task>,
+    private readonly configService: ConfigService
   ) {}
 
   async create(createTaskDto: CreateTaskDto) {
@@ -26,7 +28,8 @@ export class TasksService {
   }
 
   async findAll() {
-    const tasks = await this.TaskModel.find();
+    const tasks = await this.TaskModel.find()
+    .select('-__v');
     return tasks;
   }
 
