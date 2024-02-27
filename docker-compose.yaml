@@ -8,6 +8,6 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGODB_DATABASE: task-manager
+      MONGODB_DATABASE: taskManagerDB
     volumes:
       - ./mongo:/data/db
